@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+  <link href="assets/images/favicon.ico" rel="icon" />
+  <title>SmoothLingua</title>
+  <meta name="description" content="Your ThemeForest item Name and description">
+  <meta name="author" content="harnishdesign.net">
+
+  <!-- Stylesheet
+============================== -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
+  <!-- Font Awesome Icon -->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
+  <!-- Highlight Syntax -->
+  <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+</head>
+
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <!-- Preloader End -->
+
+  <!-- Document Wrapper   
+=============================== -->
+  <div id="main-wrapper">
+
+    <!-- Header
+  ============================ -->
+    <header id="header" class="sticky-top">
+      <!-- Navbar -->
+      <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+        <div class="container-fluid">
+          <!-- Sidebar Toggler -->
+          <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span
+              class="w-75"></span><span class="w-50"></span></button>
+
+          <!-- Logo -->
+          <a class="logo ml-md-3" href="index.html" title="Smooth Lingua"> <img src="assets/images/logo.png"
+              height="100px" alt="Smooth Lingua" /> </a>
+          <!-- Logo End -->
+
+          <!-- Navbar Toggler -->
+          <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+            data-target="#header-nav"><span></span><span></span><span></span></button>
+
+          <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li><a target="_blank" href="https://github.com/Dev-Art-Solutions/SmoothLingua">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar End -->
+    </header>
+    <!-- Header End -->
+
+    <!-- Content
+  ============================ -->
+    <div id="content" role="main">
+
+      <!-- Sidebar Navigation
+	============================ -->
+      <div class="idocs-navigation bg-dark docs-navigation-dark">
+        <ul class="nav flex-column ">
+          <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_features">Features</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_examples">Examples</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Docs Content
+	============================ -->
+      <div class="idocs-content">
+        <div class="container">
+
+          <!-- Getting Started
+		============================ -->
+          <section id="idocs_start">
+            <h1>SmoothLingua</h1>
+            <p>SmoothLingua is an open-source conversational AI platform that empowers you to create and deploy
+              intelligent conversational agents. It offers a versatile and customizable framework for building smart
+              chatbots capable of comprehending and responding to user input.</p>
+          </section>
+
+          <hr class="divider">
+
+          <!-- Installation
+		============================ -->
+          <section id="idocs_installation">
+            <h2>Installation</h2>
+            <p class="lead">Install SmoothLingua via NuGet Package Manager Console:</p>
+            <pre><code class="html">Install-Package <a href="https://www.nuget.org/packages/SmoothLingua" target="_blank">SmoothLingua</a></code></pre>
+          </section>
+
+
+          <hr class="divider">
+
+          <section id="idocs_features">
+            <h2>Features</h2>
+            <ul>
+              <li><strong>Intent Recognition</strong> - Train your model to recognize user intents, such as greetings,
+                farewells, inquiries, and more.</li>
+              <li><strong>Story Management</strong> - Define conversation flows using stories, specifying sequences of
+                intents and corresponding bot responses.</li>
+              <li><strong>Rule-Based Responses</strong> - Create rules to handle specific scenarios and ensure precise
+                responses.</li>
+              <li><strong>Trainer Module</strong> - Train your conversational agent with ease using the built-in trainer
+                module.</li>
+              <li><strong>Extensibility</strong> - Extend SmoothLingua to integrate with your existing systems and
+                services.</li>
+            </ul>
+          </section>
+
+          <hr class="divider">
+
+          <section id="idocs_examples">
+            <h2>Examples</h2>
+            <pre><code class="html">
+        using SmoothLingua;
+using SmoothLingua.Abstractions;
+using SmoothLingua.Abstractions.Stories;
+
+MemoryStream memoryStream = new MemoryStream();
+
+Trainer trainer = new Trainer();
+
+trainer.Train(new Domain(
+    new List&lt;SmoothLingua.Abstractions.NLU.Intent&gt;()
+    {
+        new SmoothLingua.Abstractions.NLU.Intent("Greeting",
+        new List&lt;string&gt;(){ "Hello", "Hi" }),
+        new SmoothLingua.Abstractions.NLU.Intent("Good",
+        new List&lt;string&gt;(){ "I am fine", "I am good, thank you" }),
+        new SmoothLingua.Abstractions.NLU.Intent("Bad",
+        new List&lt;string&gt;(){ "I am feeling bad", "I am not good" }),
+        new SmoothLingua.Abstractions.NLU.Intent("Bye",
+        new List&lt;string&gt;(){ "Good bye", "Bye" })
+    },
+    new List&lt;Story&gt;()
+    {
+        new Story("Good", new List&lt;SmoothLingua.Abstractions.Stories.Step&gt;()
+        {
+            new IntentStep("Greeting"),
+            new ResponseStep("Hello from bot!"),
+            new IntentStep("Good"),
+            new ResponseStep("I am glad to hear that!")
+        }),
+        new Story("Bad", new List&lt;SmoothLingua.Abstractions.Stories.Step&gt;()
+        {
+            new IntentStep("Greeting"),
+            new ResponseStep("Hello from bot!"),
+            new IntentStep("Bad"),
+            new ResponseStep("I am sorry to hear that!")
+        })
+    },
+    new List&lt;SmoothLingua.Abstractions.Rules.Rule&gt;()
+    {
+        new SmoothLingua.Abstractions.Rules.Rule("Bye","Bye","Bye")
+    }
+    ), memoryStream).Wait();
+
+var conversationId = Guid.NewGuid().ToString();
+var agent = await AgentLoader.Load(new MemoryStream(memoryStream.GetBuffer()));
+
+var response = agent.Handle(conversationId, "bye");
+Console.WriteLine($"Intent:{response.IntentName}");
+
+foreach (var text in response.Messages)
+{
+    Console.WriteLine($"Response:{text}");
+}
+
+response = agent.Handle(conversationId, "hello");
+Console.WriteLine($"Intent:{response.IntentName}");
+
+foreach (var text in response.Messages)
+{
+    Console.WriteLine($"Response:{text}");
+}
+
+response = agent.Handle(conversationId, "I am fine");
+Console.WriteLine($"Intent:{response.IntentName}");
+
+foreach (var text in response.Messages)
+{
+    Console.WriteLine($"Response:{text}");
+}
+
+response = agent.Handle(conversationId, "hello");
+Console.WriteLine($"Intent:{response.IntentName}");
+
+foreach (var text in response.Messages)
+{
+    Console.WriteLine($"Response:{text}");
+}
+
+response = agent.Handle(conversationId, "I am bad");
+Console.WriteLine($"Intent:{response.IntentName}");
+
+foreach (var text in response.Messages)
+{
+    Console.WriteLine($"Response:{text}");
+}
+      </code></pre>
+          </section>
+
+          <hr class="divider">
+
+          <!-- Changelog
+		============================ -->
+
+          <section id="idocs_changelog">
+            <h2>Changelog</h2>
+            <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions. </p>
+
+            <h3 id="v1-1">Version 1.0.5 <small class="text-muted">(9 March, 2024)</small></h3>
+            <ul class="changelog">
+              <li><span class="badge badge-success">Added</span> Add reset state</li>
+              <li><span class="badge badge-danger">Fixed</span> Adding single intent predictor</li>
+              <li><span class="badge badge-info">Updated</span> Adding cancellation token to async methods. Small refactoring.</li>
+            </ul>
+
+            <hr class="divider">
+
+            <h3 id="v1-0">Version 1.0.0-alpha <small class="text-muted">(25 December, 2023)</small></h3>
+            <p>Initial Release</p>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- Content end -->
+
+    <!-- Footer
+  ============================ -->
+    <footer id="footer" class="section bg-dark footer-text-light">
+      <div class="container">
+      </div>
+    </footer>
+    <!-- Footer end -->
+
+  </div>
+  <!-- Document Wrapper end -->
+
+  <!-- Back To Top -->
+  <a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i
+      class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript
+============================ -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Highlight JS -->
+  <script src="assets/vendor/highlight.js/highlight.min.js"></script>
+  <!-- Easing -->
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+  <!-- Custom Script -->
+  <script src="assets/js/theme.js"></script>
+</body>
+
+</html>
