@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
   <link href="assets/images/favicon.ico" rel="icon" />
-  <title>SmoothLingua</title>
-  <meta name="description" content="Your ThemeForest item Name and description">
-  <meta name="author" content="harnishdesign.net">
+  <title>SmoothLingua — Conversational agents for .NET</title>
+  <meta name="description" content="SmoothLingua is a .NET library for building conversational agents with intent recognition, story-based dialogue management, and rule-based responses.">
+  <meta name="author" content="Dev-Art-Solutions">
 
   <!-- Stylesheet
 ============================== -->
@@ -37,7 +37,7 @@
   </div>
   <!-- Preloader End -->
 
-  <!-- Document Wrapper   
+  <!-- Document Wrapper
 =============================== -->
   <div id="main-wrapper">
 
@@ -62,7 +62,7 @@
 
           <div id="header-nav" class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-			   <li><a target="_blank" href="https://chat.smooth-lingua.com/">Demo</a></li>
+              <li><a target="_blank" href="https://chat.smooth-lingua.com/">Demo</a></li>
               <li><a target="_blank" href="https://github.com/Dev-Art-Solutions/SmoothLingua">GitHub</a></li>
             </ul>
           </div>
@@ -83,14 +83,20 @@
           <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
             <ul class="nav flex-column">
               <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_quickstart">Quick Start</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_features">Features</a>
+          <li class="nav-item"><a class="nav-link" href="#idocs_concepts">Concepts</a>
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#idocs_intent">Intent</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_story">Story</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_rule">Rule</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_domain">Domain</a></li>
+              <li class="nav-item"><a class="nav-link" href="#idocs_agent">Agent</a></li>
+            </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_examples">Examples</a>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_when">When to use</a></li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a></li>
         </ul>
       </div>
 
@@ -103,9 +109,22 @@
 		============================ -->
           <section id="idocs_start">
             <h1>SmoothLingua</h1>
-            <p>SmoothLingua is an open-source conversational AI platform that empowers you to create and deploy
-              intelligent conversational agents. It offers a versatile and customizable framework for building smart
-              chatbots capable of comprehending and responding to user input.</p>
+            <p class="lead">A .NET library for building conversational agents powered by intent recognition,
+              story-based dialogue management, and rule-based responses.</p>
+            <p>SmoothLingua is designed for teams that want a lightweight, code-first alternative to heavy
+              conversational AI frameworks — you define your agent entirely in C# and run it anywhere .NET runs,
+              with no external services required.</p>
+            <p>
+              <a href="https://github.com/Dev-Art-Solutions/SmoothLingua/actions/workflows/build-and-test.yml"
+                target="_blank">
+                <img src="https://github.com/Dev-Art-Solutions/SmoothLingua/actions/workflows/build-and-test.yml/badge.svg"
+                  alt="build and test" />
+              </a>
+              &nbsp;
+              <a href="https://www.nuget.org/packages/SmoothLingua" target="_blank">
+                <img src="https://img.shields.io/nuget/v/SmoothLingua.svg" alt="NuGet" />
+              </a>
+            </p>
           </section>
 
           <hr class="divider">
@@ -114,142 +133,180 @@
 		============================ -->
           <section id="idocs_installation">
             <h2>Installation</h2>
-            <p class="lead">Install SmoothLingua via NuGet Package Manager Console:</p>
-            <pre><code class="html">Install-Package <a href="https://www.nuget.org/packages/SmoothLingua" target="_blank">SmoothLingua</a></code></pre>
-          </section>
-
-
-          <hr class="divider">
-
-          <section id="idocs_features">
-            <h2>Features</h2>
-            <ul>
-              <li><strong>Intent Recognition</strong> - Train your model to recognize user intents, such as greetings,
-                farewells, inquiries, and more.</li>
-              <li><strong>Story Management</strong> - Define conversation flows using stories, specifying sequences of
-                intents and corresponding bot responses.</li>
-              <li><strong>Rule-Based Responses</strong> - Create rules to handle specific scenarios and ensure precise
-                responses.</li>
-              <li><strong>Trainer Module</strong> - Train your conversational agent with ease using the built-in trainer
-                module.</li>
-              <li><strong>Extensibility</strong> - Extend SmoothLingua to integrate with your existing systems and
-                services.</li>
-            </ul>
+            <p class="lead">Install SmoothLingua via the .NET CLI:</p>
+            <pre><code class="bash">dotnet add package SmoothLingua</code></pre>
+            <p>Or via the NuGet Package Manager Console:</p>
+            <pre><code class="bash">Install-Package <a href="https://www.nuget.org/packages/SmoothLingua" target="_blank">SmoothLingua</a></code></pre>
           </section>
 
           <hr class="divider">
 
-          <section id="idocs_examples">
-            <h2>Examples</h2>
-            <pre><code class="html">
-using SmoothLingua;
+          <!-- Quick Start
+		============================ -->
+          <section id="idocs_quickstart">
+            <h2>Quick Start</h2>
+            <p>Define a domain, train it, load the agent, and start handling messages:</p>
+            <pre><code class="csharp">using SmoothLingua;
 using SmoothLingua.Abstractions;
 using SmoothLingua.Abstractions.Stories;
 
-MemoryStream memoryStream = new MemoryStream();
+// 1. Define and train the domain in memory
+MemoryStream memoryStream = new();
+Trainer trainer = new();
 
-Trainer trainer = new Trainer();
-
-trainer.Train(new Domain(
-    new List&lt;SmoothLingua.Abstractions.NLU.Intent&gt;()
-    {
-        new SmoothLingua.Abstractions.NLU.Intent("Greeting",
-        new List&lt;string&gt;(){ "Hello", "Hi" }),
-        new SmoothLingua.Abstractions.NLU.Intent("Good",
-        new List&lt;string&gt;(){ "I am fine", "I am good, thank you" }),
-        new SmoothLingua.Abstractions.NLU.Intent("Bad",
-        new List&lt;string&gt;(){ "I am feeling bad", "I am not good" }),
-        new SmoothLingua.Abstractions.NLU.Intent("Bye",
-        new List&lt;string&gt;(){ "Good bye", "Bye" })
-    },
-    new List&lt;Story&gt;()
-    {
-        new Story("Good", new List&lt;SmoothLingua.Abstractions.Stories.Step&gt;()
-        {
+await trainer.Train(new Domain(
+    [
+        new("Greeting", ["Hello", "Hi"]),
+        new("Good",     ["I am fine", "I am good, thank you"]),
+        new("Bad",      ["I am feeling bad", "I am not good"]),
+        new("Bye",      ["Good bye", "Bye"]),
+        new("IAmFrom",  ["I am from USA", "I am from Bulgaria", "I am from Germany"])
+    ],
+    [
+        new("Good",
+        [
             new IntentStep("Greeting"),
-            new ResponseStep("Hello from bot!"),
+            new ResponseStep("Hello! How are you?"),
             new IntentStep("Good"),
-            new ResponseStep("I am glad to hear that!")
-        }),
-        new Story("Bad", new List&lt;SmoothLingua.Abstractions.Stories.Step&gt;()
-        {
+            new ResponseStep("Glad to hear that! Where are you from?"),
+            new IntentStep("IAmFrom"),
+            new ResponseStep("It is nice in {country}!")
+        ]),
+        new("Bad",
+        [
             new IntentStep("Greeting"),
-            new ResponseStep("Hello from bot!"),
+            new ResponseStep("Hello! How are you?"),
             new IntentStep("Bad"),
-            new ResponseStep("I am sorry to hear that!")
-        })
-    },
-    new List&lt;SmoothLingua.Abstractions.Rules.Rule&gt;()
-    {
-        new SmoothLingua.Abstractions.Rules.Rule("Bye","Bye","Bye")
-    }
-    ), memoryStream).Wait();
+            new ResponseStep("I am sorry to hear that.")
+        ])
+    ],
+    [new("Bye", "Bye", "Bye")],
+    [new Slot("country", "IAmFrom", "country", "")],
+    [new Entity("country", new HashSet&lt;string&gt; { "Bulgaria", "USA", "Germany" })]
+), memoryStream, default);
 
-var conversationId = Guid.NewGuid().ToString();
+// 2. Load the trained agent and start a conversation
 var agent = await AgentLoader.Load(new MemoryStream(memoryStream.GetBuffer()));
+var conversationId = Guid.NewGuid().ToString();
 
-var response = agent.Handle(conversationId, "bye");
-Console.WriteLine($"Intent:{response.IntentName}");
+var r = agent.Handle(conversationId, "bye");
+// r.IntentName == "Bye", r.Messages == ["Bye"]
 
-foreach (var text in response.Messages)
-{
-    Console.WriteLine($"Response:{text}");
-}
+r = agent.Handle(conversationId, "hello");
+// r.IntentName == "Greeting", r.Messages == ["Hello! How are you?"]
 
-response = agent.Handle(conversationId, "hello");
-Console.WriteLine($"Intent:{response.IntentName}");
+r = agent.Handle(conversationId, "I am fine");
+// r.IntentName == "Good", r.Messages == ["Glad to hear that! Where are you from?"]
 
-foreach (var text in response.Messages)
-{
-    Console.WriteLine($"Response:{text}");
-}
+r = agent.Handle(conversationId, "I am from Bulgaria");
+// r.IntentName == "IAmFrom", r.Messages == ["It is nice in Bulgaria!"]
+</code></pre>
 
-response = agent.Handle(conversationId, "I am fine");
-Console.WriteLine($"Intent:{response.IntentName}");
+            <h3>Load a model from file</h3>
+            <p>Train once and persist to disk — no retraining needed on subsequent starts:</p>
+            <pre><code class="csharp">// Train and save
+await trainer.Train(domain, "model.zip", default);
 
-foreach (var text in response.Messages)
-{
-    Console.WriteLine($"Response:{text}");
-}
+// Load on every restart
+var agent = await AgentLoader.Load("model.zip");
+</code></pre>
+          </section>
 
-response = agent.Handle(conversationId, "hello");
-Console.WriteLine($"Intent:{response.IntentName}");
+          <hr class="divider">
 
-foreach (var text in response.Messages)
-{
-    Console.WriteLine($"Response:{text}");
-}
+          <!-- Concepts
+		============================ -->
+          <section id="idocs_concepts">
+            <h2>Concepts</h2>
 
-response = agent.Handle(conversationId, "I am bad");
-Console.WriteLine($"Intent:{response.IntentName}");
+            <h3 id="idocs_intent">Intent</h3>
+            <p>A named category of user utterances. You supply example phrases and the ML trainer learns to recognise
+              them. An <code>Intent</code> named <code>Greeting</code> with examples <code>["Hello", "Hi"]</code> will
+              match any similar greeting at runtime.</p>
 
-foreach (var text in response.Messages)
-{
-    Console.WriteLine($"Response:{text}");
-}
-      </code></pre>
+            <h3 id="idocs_story">Story</h3>
+            <p>A multi-turn conversation flow defined as an ordered list of <code>IntentStep</code> and
+              <code>ResponseStep</code> entries. Stories model sequences: "after the user greets, reply; if they say
+              they're fine, reply differently than if they say they're sad."
+            </p>
+
+            <h3 id="idocs_rule">Rule</h3>
+            <p>An always-active, single-turn shortcut. A rule fires whenever its intent is predicted, regardless of
+              conversation context. Use rules for commands like <code>Bye</code> that should always produce the same
+              response.</p>
+
+            <h3 id="idocs_domain">Domain</h3>
+            <p>The bundle that groups all intents, stories, rules, slots, and entities into one trainable unit. Pass a
+              <code>Domain</code> to <code>Trainer.Train</code>, which serialises it (together with the trained ML
+              model) into a zip archive you can store anywhere.
+            </p>
+
+            <h3 id="idocs_agent">Agent</h3>
+            <p>The runtime object that handles user input. Obtain one via <code>AgentLoader.Load</code>. It predicts
+              the intent, advances the conversation state, and returns a <code>Response</code> containing the matched
+              intent name and the bot's reply messages.</p>
+          </section>
+
+          <hr class="divider">
+
+          <!-- When to use
+		============================ -->
+          <section id="idocs_when">
+            <h2>When SmoothLingua, when not</h2>
+
+            <h3>Good fit</h3>
+            <ul>
+              <li>.NET applications that need embedded conversational logic with no external services</li>
+              <li>Prototypes and internal tools where you want full control over training data and model lifecycle</li>
+              <li>Chatbots with a finite, well-defined intent set (up to ~50 intents)</li>
+              <li>Offline or air-gapped environments</li>
+            </ul>
+
+            <h3>Not a good fit</h3>
+            <ul>
+              <li>Large-scale open-domain conversation — use a hosted LLM instead</li>
+              <li>Use cases that require deep semantic understanding beyond the ML.NET SDCA classifier</li>
+              <li>Teams that need a visual or no-code dialogue editor</li>
+            </ul>
           </section>
 
           <hr class="divider">
 
           <!-- Changelog
 		============================ -->
-
           <section id="idocs_changelog">
             <h2>Changelog</h2>
-            <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions. </p>
+            <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions.</p>
 
-            <h3 id="v1-1">Version 1.0.5 <small class="text-muted">(9 March, 2024)</small></h3>
+            <h3 id="v1-2">Version 1.2.0 <small class="text-muted">(2026)</small></h3>
             <ul class="changelog">
-              <li><span class="badge badge-success">Added</span> Add reset state</li>
-              <li><span class="badge badge-danger">Fixed</span> Adding single intent predictor</li>
-              <li><span class="badge badge-info">Updated</span> Adding cancellation token to async methods. Small refactoring.</li>
+              <li><span class="badge badge-success">Added</span> Rewritten README with Concepts, Quick Start, and
+                When/Not guidance</li>
+              <li><span class="badge badge-success">Added</span> XML documentation on all public types — improves
+                IntelliSense for consumers</li>
+              <li><span class="badge badge-success">Added</span> File-based model loading example in QuickStart</li>
+              <li><span class="badge badge-success">Added</span> Automated website deploy workflow</li>
+              <li><span class="badge badge-info">Updated</span> Website content aligned with library documentation</li>
             </ul>
 
             <hr class="divider">
 
-            <h3 id="v1-0">Version 1.0.0-alpha <small class="text-muted">(25 December, 2023)</small></h3>
-            <p>Initial Release</p>
+            <h3 id="v1-1">Version 1.1.0 <small class="text-muted">(6 June, 2026)</small></h3>
+            <ul class="changelog">
+              <li><span class="badge badge-success">Added</span> Automated release pipeline — push a <code>v*</code>
+                tag to build, test, pack, and publish to NuGet automatically</li>
+              <li><span class="badge badge-success">Added</span> GitHub Releases auto-generated on each tag push</li>
+              <li><span class="badge badge-success">Added</span> CHANGELOG.md and CONTRIBUTING.md</li>
+              <li><span class="badge badge-success">Added</span> GitHub issue and pull request templates</li>
+              <li><span class="badge badge-success">Added</span> Code coverage via Coverlet</li>
+              <li><span class="badge badge-info">Updated</span> CI split into build-and-test and release workflows</li>
+            </ul>
+
+            <hr class="divider">
+
+            <h3 id="v1-0">Version 1.0.6 <small class="text-muted">(1 January, 2024)</small></h3>
+            <p>Initial public release — intent recognition, story management, rule-based responses, Trainer, Agent,
+              AgentLoader, NuGet package.</p>
           </section>
 
         </div>
