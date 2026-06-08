@@ -278,6 +278,18 @@ var agent = await AgentLoader.Load("model.zip");
             <h2>Changelog</h2>
             <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions.</p>
 
+            <h3 id="v2-0">Version 2.0.0 <small class="text-muted">(8 June, 2026)</small></h3>
+            <ul class="changelog">
+              <li><span class="badge badge-success">Added</span> Confidence score on every prediction (softmax-normalised, range 0–1)</li>
+              <li><span class="badge badge-success">Added</span> Fallback intent when confidence falls below a configurable threshold (default 0.4)</li>
+              <li><span class="badge badge-success">Added</span> Lookup-based entity extraction — matched values returned in <code>Response.ExtractedEntities</code></li>
+              <li><span class="badge badge-success">Added</span> <code>Domain.ConfidenceThreshold</code> and <code>Domain.FallbackIntentName</code> configuration fields</li>
+              <li><span class="badge badge-danger">Breaking</span> <code>Response</code> gains a required <code>Confidence</code> field — see migration notes in the GitHub release</li>
+              <li><span class="badge badge-danger">Breaking</span> <code>IPredictor.Predict</code> now returns <code>(string IntentName, float Confidence)</code></li>
+            </ul>
+
+            <hr class="divider">
+
             <h3 id="v1-2">Version 1.2.0 <small class="text-muted">(2026)</small></h3>
             <ul class="changelog">
               <li><span class="badge badge-success">Added</span> Rewritten README with Concepts, Quick Start, and
