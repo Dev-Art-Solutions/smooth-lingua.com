@@ -96,7 +96,15 @@
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="#idocs_when">When to use</a></li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#v2-1">v2.1.0</a></li>
+              <li class="nav-item"><a class="nav-link" href="#v2-0">v2.0.0</a></li>
+              <li class="nav-item"><a class="nav-link" href="#v1-2">v1.2.0</a></li>
+              <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1.0</a></li>
+              <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0.6</a></li>
+            </ul>
+          </li>
         </ul>
       </div>
 
@@ -277,6 +285,18 @@ var agent = await AgentLoader.Load("model.zip");
           <section id="idocs_changelog">
             <h2>Changelog</h2>
             <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions.</p>
+
+            <h3 id="v2-1">Version 2.1.0 <small class="text-muted">(9 June, 2026)</small></h3>
+            <ul class="changelog">
+              <li><span class="badge badge-success">Added</span> <code>IConversationStore</code> abstraction in the core package — no ASP.NET dependency. Exposes <code>Get</code>, <code>Save</code>, and <code>Reset</code>; works identically in a console app, a desktop tool, or a web service.</li>
+              <li><span class="badge badge-success">Added</span> <code>InMemoryConversationStore</code> — default implementation, existing behaviour preserved exactly.</li>
+              <li><span class="badge badge-success">Added</span> <code>FileConversationStore</code> — durable implementation that serialises each conversation as a JSON file. State survives process restarts with no external dependencies.</li>
+              <li><span class="badge badge-success">Added</span> <code>SmoothLingua.Server</code> — minimal ASP.NET Core Web API: <code>POST /conversations/{id}/messages</code>, <code>POST /conversations/{id}/reset</code>, <code>GET /health</code>, and an <code>AddSmoothLingua</code> DI extension.</li>
+              <li><span class="badge badge-success">Added</span> Dockerfile for <code>SmoothLingua.Server</code> — multi-stage build, <code>/app/data</code> volume for model and store.</li>
+              <li><span class="badge badge-info">Updated</span> <code>AgentLoader.Load</code> and <code>ConversationManager</code> accept an optional <code>IConversationStore</code> — fully backward compatible.</li>
+            </ul>
+
+            <hr class="divider">
 
             <h3 id="v2-0">Version 2.0.0 <small class="text-muted">(8 June, 2026)</small></h3>
             <ul class="changelog">
