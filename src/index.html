@@ -95,9 +95,11 @@
               <li class="nav-item"><a class="nav-link" href="#idocs_agent">Agent</a></li>
             </ul>
           </li>
+          <li class="nav-item"><a class="nav-link" href="#idocs_insights">Behavioural insights</a></li>
           <li class="nav-item"><a class="nav-link" href="#idocs_when">When to use</a></li>
           <li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
             <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#v2-2">v2.2.0</a></li>
               <li class="nav-item"><a class="nav-link" href="#v2-1">v2.1.0</a></li>
               <li class="nav-item"><a class="nav-link" href="#v2-0">v2.0.0</a></li>
               <li class="nav-item"><a class="nav-link" href="#v1-2">v1.2.0</a></li>
@@ -257,6 +259,34 @@ var agent = await AgentLoader.Load("model.zip");
 
           <hr class="divider">
 
+          <!-- Behavioural insights
+		============================ -->
+          <section id="idocs_insights">
+            <h2>Behavioural insights</h2>
+            <p class="lead">Find out where the agent is unsure — without retaining personal data.</p>
+            <p>SmoothLingua ships with an opt-in <code>IAnalyticsRecorder</code> that captures anonymous per-turn signals (predicted intent, confidence, fallback flag) and aggregates them on demand. Conversation identifiers and message text never leave the recorder.</p>
+            <pre><code class="csharp">using SmoothLingua.Analytics;
+
+var recorder = new InMemoryAnalyticsRecorder();
+var agent = await AgentLoader.Load("model.zip", analyticsRecorder: recorder);
+
+agent.Handle("conv-1", "hi");
+agent.Handle("conv-1", "what's the weather on Jupiter?");
+
+var snapshot = recorder.GetSnapshot();
+// snapshot.TotalMessages, snapshot.FallbackRate, snapshot.AverageConfidence, snapshot.Intents
+</code></pre>
+            <h3>Reading the signals</h3>
+            <ul>
+              <li><strong>High fallback rate</strong> — many user messages land below the confidence threshold. Either lower the threshold or add more examples to the intents users are reaching for.</li>
+              <li><strong>Popular intent with low average confidence</strong> — the model picks it, but only barely. Add more (and more varied) examples so the score firms up.</li>
+              <li><strong>Short average conversation length combined with a high fallback rate</strong> — usually points at a missing intent.</li>
+            </ul>
+            <p>The <code>SmoothLingua.Server</code> host registers an <code>InMemoryAnalyticsRecorder</code> automatically and exposes the snapshot at <code>GET /insights</code>. The interactive demo at <a target="_blank" href="https://chat.smooth-lingua.com/">chat.smooth-lingua.com</a> renders the same data live.</p>
+          </section>
+
+          <hr class="divider">
+
           <!-- When to use
 		============================ -->
           <section id="idocs_when">
@@ -285,6 +315,18 @@ var agent = await AgentLoader.Load("model.zip");
           <section id="idocs_changelog">
             <h2>Changelog</h2>
             <p class="text-4">See what's new added, changed, fixed, improved or updated in the latest versions.</p>
+
+            <h3 id="v2-2">Version 2.2.0 <small class="text-muted">(10 June, 2026)</small></h3>
+            <ul class="changelog">
+              <li><span class="badge badge-success">Added</span> <code>IAnalyticsRecorder</code> abstraction in the core package — captures anonymous per-turn signals (intent, confidence, fallback flag) and aggregates them on demand. <code>InMemoryAnalyticsRecorder</code> ships as the default; <code>NullAnalyticsRecorder</code> stays in place when analytics are not requested.</li>
+              <li><span class="badge badge-success">Added</span> <code>GET /insights</code> on <code>SmoothLingua.Server</code> — returns aggregated counts (fallback rate, average confidence, per-intent stats) without exposing conversation IDs or message text.</li>
+              <li><span class="badge badge-success">Added</span> <code>POST /playground/predict</code> — trains a tiny in-memory classifier from visitor-supplied intents and predicts an intent for a piece of text. Cached per intent set; intent and example counts are hard-capped.</li>
+              <li><span class="badge badge-success">Added</span> CORS support on <code>SmoothLingua.Server</code> via <code>SmoothLingua:Cors:AllowedOrigins</code>; the chat subdomain and the docs site are allowed by default.</li>
+              <li><span class="badge badge-success">Added</span> Interactive demo at <a target="_blank" href="https://chat.smooth-lingua.com/">chat.smooth-lingua.com</a> — chat with the pre-trained agent, a Playground tab for your own intents, and an Insights tab that shows the live aggregates.</li>
+              <li><span class="badge badge-info">Updated</span> <code>AgentLoader.Load</code> and the <code>Agent</code> constructor accept an optional <code>IAnalyticsRecorder</code> — fully backward compatible.</li>
+            </ul>
+
+            <hr class="divider">
 
             <h3 id="v2-1">Version 2.1.0 <small class="text-muted">(9 June, 2026)</small></h3>
             <ul class="changelog">
